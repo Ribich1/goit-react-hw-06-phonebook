@@ -1,6 +1,9 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import css from './ContactForm.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'components/redux/phonebookSlice';
+
 // import * as yup from 'yup';
 
 // const schema = yup.object().shape({
@@ -13,10 +16,29 @@ const initialValues = {
   number: '',
 };
 
-const ContactForm = ({ onAddContact }) => {
+const ContactForm = () => {
+  // const handleSubmit = (values, { resetForm }) => {
+  //   console.log('values', values);
+  //   onAddContact(values);
+  //   resetForm();
+  // };
+
+  const dispatch = useDispatch();
+  const contactArr = useSelector(state => state.phonebook);
+  console.log('arr', contactArr);
+
   const handleSubmit = (values, { resetForm }) => {
-    console.log('values', values);
-    onAddContact(values);
+    console.log('values', values.name);
+    if (
+      contactArr.find(
+        contact => contact.name.toLowerCase() === values.name.toLowerCase()
+      )
+    ) {
+      alert(`${values.name} is already in the contacts`);
+      return;
+    }
+    // onAddContact(values);
+    dispatch(addContact(values));
     resetForm();
   };
 

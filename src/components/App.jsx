@@ -35,6 +35,7 @@ export default function App() {
       number: e.number,
     };
     setContacts(prevContacts => [contactEl, ...prevContacts]);
+
   };
 
   const changeFilter = e => {
@@ -64,7 +65,7 @@ export default function App() {
     <>
       <div className={css.div}>
         <h1>Phonebook</h1>
-        <ContactForm onAddContact={handleAddContact} />
+        <ContactForm />
 
         <h2>Contacts</h2>
         <Filter filterEl={filter} onChangeEl={changeFilter} />
