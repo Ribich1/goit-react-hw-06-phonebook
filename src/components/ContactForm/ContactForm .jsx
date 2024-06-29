@@ -17,18 +17,9 @@ const initialValues = {
 };
 
 const ContactForm = () => {
-  // const handleSubmit = (values, { resetForm }) => {
-  //   console.log('values', values);
-  //   onAddContact(values);
-  //   resetForm();
-  // };
-
   const dispatch = useDispatch();
   const contactArr = useSelector(state => state.phonebook);
-  console.log('arr', contactArr);
-
   const handleSubmit = (values, { resetForm }) => {
-    console.log('values', values.name);
     if (
       contactArr.find(
         contact => contact.name.toLowerCase() === values.name.toLowerCase()
@@ -37,17 +28,12 @@ const ContactForm = () => {
       alert(`${values.name} is already in the contacts`);
       return;
     }
-    // onAddContact(values);
     dispatch(addContact(values));
     resetForm();
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      //   validationSchema={schema}
-      onSubmit={handleSubmit}
-    >
+    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       <Form autoComplete="off" className={css.form}>
         <label htmlFor="name" className={css.label}>
           Name
@@ -58,7 +44,6 @@ const ContactForm = () => {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
           />
-          {/* <ErrorMessage name="name" component="div" /> */}
         </label>
         <label htmlFor="number" className={css.label}>
           Number
